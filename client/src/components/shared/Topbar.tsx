@@ -1,28 +1,14 @@
-import { Bell, Menu } from "lucide-react";
+import { handleLogout } from "@/lib/auth";
+import { Bell } from "lucide-react";
 
-type Props = {
-  setIsOpen: (value: boolean) => void;
-};
-
-export default function Topbar({ setIsOpen }: Props) {
+export default function Topbar() {
   return (
     <header className="sticky top-0 z-40 flex items-center justify-between w-full px-6 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200">
-      {/* LEFT SIDE */}
-      <div className="flex items-center gap-3 flex-1">
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg"
-          onClick={() => setIsOpen(true)}
-        >
-          <Menu className="w-5 h-5" />
-        </button>
+      <span className="text-xl font-bold tracking-tight text-slate-900">
+        SmartTickets
+      </span>
 
-        {/* Brand */}
-        <span className="text-xl font-bold tracking-tight text-slate-900">
-          SmartTickets
-        </span>
-      </div>
-
+      <button onClick={handleLogout}>Logout</button>
       {/* RIGHT SIDE */}
       <div className="flex items-center gap-4">
         <button className="p-2 text-slate-500 hover:bg-slate-50 transition rounded-full">

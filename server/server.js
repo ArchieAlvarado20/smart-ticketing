@@ -1,20 +1,27 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
+const passport = require("passport");
+require("./config/passport");
 
 const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const ticketRoutes = require("./routes/ticketRoutes");
 
-dotenv.config();
-connectDB();
+const app = express(); // ✅ CREATE APP FIRST
 
-const app = express();
+connectDB();
 
 app.use(cors());
 app.use(express.json());
 
-// routes
+// now safe to use app
+app.use(passport.initialize());
+
+app.use("/api/auth", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", ticketRoutes);
 

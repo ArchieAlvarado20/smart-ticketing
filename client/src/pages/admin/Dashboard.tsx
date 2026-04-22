@@ -16,16 +16,20 @@ import MobileBottomNav from "@/components/shared/BottomNav";
 import { useState } from "react";
 
 export default function Dashboard() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [user] = useState(() => {
+    return JSON.parse(localStorage.getItem("user") || "null");
+  });
+
   return (
     <>
       {/* <!-- TopAppBar --> */}
-      <Topbar setIsOpen={setIsOpen} />
+      <Topbar />
+      <h1>Welcome, {user?.name}</h1>
       <div className="flex min-h-screen">
         {/* <!-- NavigationDrawer --> */}
         <Sidebar />
         {/* <!-- Main Content Area --> */}
-        <main className="flex-1 mb-12 p-8">
+        <main className="flex-1 mb-12 p-4">
           <div className="max-w-container-max mx-auto">
             {/* <!-- Page Header --> */}
             <div className="mb-6 space-y-1">

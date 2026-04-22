@@ -2,21 +2,19 @@ import MobileBottomNav from "@/components/shared/BottomNav";
 import Sidebar from "@/components/shared/Sidebar";
 import Topbar from "@/components/shared/Topbar";
 import { Camera, FlashlightIcon, QrCode } from "lucide-react";
-import { useState } from "react";
 
 export default function Scanner() {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       {/* <!-- TopAppBar --> */}
-      <Topbar setIsOpen={setIsOpen} />
+      <Topbar />
 
       {/* <!-- Main Content Area --> */}
-      <main className="flex-1 mb-12 flex flex-col min-h-screen">
+      <main className="flex mb-12 min-h-screen">
         {/* <!-- Navigation Drawer (SideNav) --> */}
         <Sidebar />
         {/* <!-- Page Canvas --> */}
-        <div className="flex-1 p-6 md:p-10 flex flex-col items-center justify-center">
+        <div className="flex-1 p-4 md:p-4 flex flex-col items-center justify-center">
           <div className="w-full max-w-4xl flex flex-col lg:flex-row gap-8 items-stretch">
             {/* <!-- Left: Scanner Viewport Section --> */}
             <div className="flex-1 flex flex-col gap-6">
