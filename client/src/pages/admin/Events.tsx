@@ -99,8 +99,12 @@ export default function Events() {
               {/* ADD TICKET TYPE MODAL */}
               {openTicketModal && selectedEvent && (
                 <TicketTypeModal
+                  open={openTicketModal}
                   event={selectedEvent}
                   onClose={() => setOpenTicketModal(false)}
+                  onSuccess={() => {
+                    setOpenTicketModal(false);
+                  }}
                 />
               )}
 

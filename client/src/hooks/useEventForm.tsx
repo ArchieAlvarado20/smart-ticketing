@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { showError, showSuccess } from "@/lib/alert";
 import { eventApi } from "@/api/event.api";
 
@@ -114,7 +113,7 @@ export default function useEventForm(onSuccess?: () => void) {
 
     if (!form.contactNumber) {
       newErrors.contactNumber = "Required";
-    } else if (!/^\+?[\d\s\-]{7,15}$/.test(form.contactNumber)) {
+    } else if (!/^\+?[\d\s\\-]{7,15}$/.test(form.contactNumber)) {
       newErrors.contactNumber = "Invalid contact number";
     }
 
@@ -149,15 +148,6 @@ export default function useEventForm(onSuccess?: () => void) {
         }
       });
 
-      // const payload = {
-      //   ...form,
-      //   tags: form.tags?.length
-      //     ? form.tags.split(",").map((t) => t.trim())
-      //     : [],
-      //   capacity: Number(form.capacity || 0),
-      //   price: Number(form.price || 0),
-      // };
-
       const res = await eventApi.create(formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -170,9 +160,14 @@ export default function useEventForm(onSuccess?: () => void) {
 
       showSuccess("Event created successfully!");
       onSuccess?.();
-    } catch (err: any) {
-      showError(err.response?.data?.message || "Failed to create event");
-      console.log("ERROR:", err.response?.data || err.message);
+    } catch (err: unknown) {
+      let message = "Failed to create event";
+
+      if (err instanceof Error) {
+        message = err.message;
+      }
+
+      showError(message);
     } finally {
       setLoading(false);
     }

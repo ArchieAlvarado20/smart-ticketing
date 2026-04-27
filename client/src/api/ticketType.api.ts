@@ -3,7 +3,7 @@ import axios from "axios";
 const API = `${import.meta.env.VITE_API_URL}/api/ticket-types`;
 
 export const ticketTypeApi = {
-  create: (data: any) => axios.post(API, data),
+  create: (data: any, config?: any) => axios.post(API, data, config),
 
   getByEvent: (eventId: string) => axios.get(`${API}/${eventId}`),
 
