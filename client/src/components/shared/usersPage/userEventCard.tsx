@@ -1,4 +1,4 @@
-import { LocationEdit, MapPin, Pin } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 interface Event {
   _id: string;
@@ -17,7 +17,7 @@ interface EventCardProps {
 
 export default function UserEventCard({ event }: EventCardProps) {
   return (
-    <div className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-shadow group">
+    <div className="bg-white rounded-4xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow group">
       {/* Image Section */}
       <div className="relative h-46 overflow-hidden">
         <img

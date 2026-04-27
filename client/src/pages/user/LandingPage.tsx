@@ -1,4 +1,3 @@
-import { eventApi } from "@/api/event.api";
 import Logo from "@/components/shared/Logo";
 import UserEventCard from "@/components/shared/usersPage/userEventCard";
 import axios from "axios";
@@ -20,18 +19,11 @@ interface Event {
 }
 
 export default function LandingPage() {
-  const [openModal, setOpenModal] = useState(false);
-  const [openTicketModal, setOpenTicketModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [events, setEvents] = useState<Event[]>([]);
-  const [page, setPage] = useState(1);
-  const [unauthorized, setUnauthorized] = useState(false);
 
   const fetchEvents = async () => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/event?page=${page}`,
-      );
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/event`);
 
       setEvents(res.data.events || []);
     } catch (err) {

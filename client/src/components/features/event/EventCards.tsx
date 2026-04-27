@@ -1,13 +1,6 @@
-import {
-  Calendar,
-  MapPin,
-  MoreVertical,
-  Edit,
-  BarChart3,
-  Ticket,
-} from "lucide-react";
+import { Calendar, MapPin, MoreVertical, Edit, Ticket } from "lucide-react";
 
-interface Event {
+interface EventType {
   _id: string;
   name: string;
   date: string;
@@ -17,8 +10,8 @@ interface Event {
 }
 
 interface EventCardProps {
-  event: Event;
-  onAddTicket: Event;
+  event: EventType;
+  onAddTicket: (event: EventType) => void;
 }
 
 export default function EventCard({ event, onAddTicket }: EventCardProps) {

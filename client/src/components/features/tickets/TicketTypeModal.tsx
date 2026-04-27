@@ -20,6 +20,8 @@ export type EventType = {
   color: "green";
 };
 
+export type AccessLevel = "vip" | "media" | "general" | "speaker" | "staff";
+
 export default function TicketTypeModal({
   event,
   onClose,
@@ -27,7 +29,6 @@ export default function TicketTypeModal({
   event: EventType;
   onClose: () => void;
 }) {
-  const [errors, setErrors] = useState("");
   const { createTicketType, loading } = useTicketType(event._id, {
     onSuccess: () => onClose(),
   });
@@ -124,7 +125,6 @@ export default function TicketTypeModal({
                 placeholder="Name (VIP / GA)"
                 className="md:col-span-1"
                 onChange={handleChange}
-                error={errors.name}
               />
               <Input
                 label="Capacity"
@@ -133,7 +133,6 @@ export default function TicketTypeModal({
                 placeholder=""
                 className="md:col-span-1"
                 onChange={handleChange}
-                error={errors.capacity}
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -161,7 +160,6 @@ export default function TicketTypeModal({
               onChange={handleChange}
               placeholder="Tell attendees more about your tickets..."
               rows={4}
-              error={errors.description}
             />
 
             <Input
@@ -186,7 +184,7 @@ export default function TicketTypeModal({
 
               <div className="flex gap-3">
                 <div className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                  <span>Ticket Color: </span>
+                  <span>Ticket Badge Color: </span>
                 </div>
                 {[
                   { name: "green", label: "" },
