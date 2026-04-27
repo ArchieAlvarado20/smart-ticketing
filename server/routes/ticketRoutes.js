@@ -9,7 +9,9 @@ const {
 } = require("../controllers/ticketController");
 
 router.post("/tickets", authMiddleware, createTicket);
-router.get("/tickets", getTickets);
-router.post("/tickets/verify", adminMiddleware, verifyTicket);
+
+router.get("/tickets", authMiddleware, getTickets);
+
+router.post("/tickets/verify", authMiddleware, adminMiddleware, verifyTicket);
 
 module.exports = router;

@@ -10,8 +10,12 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const ticketRoutes = require("./routes/ticketRoutes");
+const eventRoutes = require("./routes/eventRoutes.js");
+const ticketTypeRoutes = require("./routes/ticketTypeRoutes");
 
-const app = express(); // ✅ CREATE APP FIRST
+const testRoutes = require("./routes/testRoutes");
+
+const app = express();
 
 connectDB();
 
@@ -20,10 +24,14 @@ app.use(express.json());
 
 // now safe to use app
 app.use(passport.initialize());
+app.use("/api/ticket-types", ticketTypeRoutes);
 
+app.use("/api", testRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", ticketRoutes);
+
+app.use("/api", eventRoutes);
 
 app.get("/", (req, res) => {
   res.send("Smart Ticketing API Running");

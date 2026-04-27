@@ -1,7 +1,13 @@
 import MobileBottomNav from "@/components/shared/BottomNav";
 import Sidebar from "@/components/shared/Sidebar";
 import Topbar from "@/components/shared/Topbar";
-import { Camera, FlashlightIcon, QrCode } from "lucide-react";
+import {
+  Camera,
+  CheckCircle,
+  FlashlightIcon,
+  Lightbulb,
+  QrCode,
+} from "lucide-react";
 
 export default function Scanner() {
   return (
@@ -24,6 +30,7 @@ export default function Scanner() {
                   Align the ticket QR code within the frame to scan.
                 </p>
               </div>
+
               {/* <!-- Scanner Camera Area --> */}
               <div
                 className="relative aspect-square w-full max-w-md mx-auto lg:mx-0 bg-slate-950 rounded-xl overflow-hidden shadow-2xl scanner-viewport"
@@ -93,9 +100,7 @@ export default function Scanner() {
                   <div className="flex items-center justify-between p-4 bg-primary/5 rounded-lg border border-primary/10">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-700">
-                        <span className="material-symbols-outlined">
-                          check_circle
-                        </span>
+                        <CheckCircle />
                       </div>
                       <span className="font-label-md text-slate-900">
                         Valid Ticket
@@ -125,9 +130,7 @@ export default function Scanner() {
                 </div>
                 {/* <!-- Helper Tip --> */}
                 <div className="bg-slate-900 text-white p-6 rounded-xl flex items-start gap-4">
-                  <span className="material-symbols-outlined text-primary">
-                    lightbulb
-                  </span>
+                  <Lightbulb />
                   <div>
                     <h5 className="text-sm font-bold mb-1">Scanning Tip</h5>
                     <p className="text-xs text-slate-400 leading-relaxed">

@@ -1,14 +1,17 @@
 import { handleLogout } from "@/lib/auth";
-import { Bell } from "lucide-react";
+import { Bell, LogOut } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Topbar() {
   return (
     <header className="sticky top-0 z-40 flex items-center justify-between w-full px-6 h-16 bg-white/80 backdrop-blur-md border-b border-slate-200">
-      <span className="text-xl font-bold tracking-tight text-slate-900">
-        SmartTickets
+      <span className="flex flex-2 gap-1 text-xl font-bold tracking-tight text-slate-900">
+        <Logo className="h-16 -ml-5 md:ml-0" />
       </span>
 
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleLogout}>
+        <LogOut />{" "}
+      </button>
       {/* RIGHT SIDE */}
       <div className="flex items-center gap-4">
         <button className="p-2 text-slate-500 hover:bg-slate-50 transition rounded-full">

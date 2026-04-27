@@ -5,6 +5,7 @@ import {
   Settings,
   Ticket,
   PanelLeft,
+  CalendarDays,
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -29,7 +30,7 @@ export default function Sidebar() {
         className={`
           fixed md:static top-0 left-0 z-50 md:z-auto
           h-full w-64 bg-white border-white p-4
-          transition-transform duration-300 ease-in-out
+          transition-transform duration-300 ease-in-out overflow-y-auto
           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
           ${isCollapsed ? "md:w-16" : "md:w-64"}
         `}
@@ -69,6 +70,24 @@ export default function Sidebar() {
 
             <span className={`${isCollapsed ? "hidden" : "inline"}`}>
               Dashboard
+            </span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/events"
+            className={({ isActive }) =>
+              `flex items-center text-sm font-medium rounded-lg transition-all ${
+                isActive
+                  ? "text-indigo-600 bg-indigo-50"
+                  : "text-slate-600 hover:bg-slate-100"
+              } ${isCollapsed ? "justify-center px-1 py-1" : "gap-3 px-3 py-2"}`
+            }
+          >
+            <CalendarDays
+              className={`${iconSize} shrink-0 transition-all duration-200`}
+            />
+            <span className={`${isCollapsed ? "hidden" : "inline"}`}>
+              Events
             </span>
           </NavLink>
 

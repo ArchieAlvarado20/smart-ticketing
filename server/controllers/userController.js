@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
-
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -13,12 +12,17 @@ const loginUser = async (req, res) => {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role },
+      {
+        id: user._id,
+        email: user.email,
+        role: user.role, // ✅ VERY IMPORTANT
+      },
       process.env.JWT_SECRET || "secret",
       { expiresIn: "1d" },
     );
@@ -30,6 +34,7 @@ const loginUser = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role, // ✅ ADD ROLE HERE
       },
     });
   } catch (error) {
@@ -39,7 +44,7 @@ const loginUser = async (req, res) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     const existingUser = await User.findOne({ email });
 
@@ -49,11 +54,21 @@ const registerUser = async (req, res) => {
       });
     }
 
-    const user = await User.create({ name, email, password });
+    const user = await User.create({
+      name,
+      email,
+      password,
+      role: role || "user", // ✅ default user
+    });
 
     res.status(201).json({
       message: "User created successfully",
-      user,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role, // ✅ include role
+      },
     });
   } catch (error) {
     if (error.code === 11000) {

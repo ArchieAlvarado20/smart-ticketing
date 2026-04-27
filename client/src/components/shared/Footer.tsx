@@ -1,4 +1,4 @@
-import { Ticket } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -8,16 +8,9 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* LEFT: Brand + Tagline */}
             <div className="flex flex-col items-center md:items-start gap-1">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-indigo-600 rounded flex items-center justify-center text-white">
-                  <Ticket />
-                </div>
-                <span className="text-sm font-semibold text-slate-800">
-                  SmartTicket
-                </span>
-              </div>
+              <Logo className="h-16" />
 
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 text-center">
                 Modern ticketing system for seamless event management
               </p>
             </div>

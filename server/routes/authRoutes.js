@@ -26,7 +26,7 @@ router.get(
     );
 
     // redirect to frontend with token
-    res.redirect(`http://localhost:5173/auth?token=${token}`);
+    res.redirect(`${process.env.CLIENT_URL}/admin/?token=${token}`);
   },
 );
 

@@ -25,7 +25,7 @@ export function StatsCard({
         : "text-slate-500";
 
   return (
-    <div className="bg-white p-6 border border-slate-200 rounded-xl shadow-sm">
+    <div className="bg-s p-6 border border-slate-200 rounded-xl shadow-sm">
       {/* Top section */}
       <div className="flex items-start justify-between">
         <div>

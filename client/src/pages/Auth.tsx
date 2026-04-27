@@ -1,11 +1,14 @@
-import { Eye, Lock, Ticket } from "lucide-react";
+import { Eye, Lock } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Footer from "@/components/shared/footer";
+import Footer from "@/components/shared/Footer";
+import { useNavigate } from "react-router-dom";
+import Logo from "@/components/shared/Logo";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
@@ -38,8 +41,8 @@ export default function Auth() {
 
     try {
       const url = isLogin
-        ? "http://localhost:5000/api/login"
-        : "http://localhost:5000/api/register";
+        ? `${import.meta.env.VITE_API_URL}/api/login`
+        : `${import.meta.env.VITE_API_URL}/api/register`;
 
       const res = await axios.post(url, form);
 
@@ -51,9 +54,13 @@ export default function Auth() {
         localStorage.setItem("token", accessToken);
         localStorage.setItem("user", JSON.stringify(user));
 
-        window.location.href = "/admin/dashboard";
+        if (user.role === "admin") {
+          window.location.href = "/admin/dashboard";
+        } else {
+          window.location.href = "/";
+        }
       } else {
-        window.location.href = "/admin/dashboard";
+        window.location.href = "/";
       }
     } catch (err) {
       console.log("ERROR:", err);
@@ -64,16 +71,25 @@ export default function Auth() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`;
   };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
+    const role = params.get("role");
 
     if (token) {
       localStorage.setItem("token", token);
-      window.location.href = "/admin/dashboard";
+
+      // clean URL (important UX fix)
+      window.history.replaceState({}, document.title, "/auth");
+
+      if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/");
+      }
     }
   }, []);
   return (
@@ -83,15 +99,8 @@ export default function Auth() {
         <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-3xl"></div>
       </div>
       {/* <!-- Header (Brand Only) --> */}
-      <header className="relative z-10 w-full px-8 py-10 flex justify-center items-center">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded flex items-center justify-center text-white">
-            <Ticket />
-          </div>
-          <span className="text-2xl font-bold tracking-tight text-slate-900">
-            SmartTicket
-          </span>
-        </div>
+      <header className="relative z-10 w-full px-8 py-5 mt-5 flex justify-center items-center">
+        <Logo className="h-24" />
       </header>
       <div className="relative z-10 flex-grow flex items-center justify-center px-4 pb-1">
         {error && (
@@ -138,7 +147,9 @@ export default function Auth() {
                   Name
                 </label>
                 <input
-                  className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all text-base text-slate-900"
+                  className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-slate-900 text-base
+focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-600
+transition-all"
                   id="name"
                   name="name"
                   placeholder="JohnDoe@gmail.com"
@@ -154,7 +165,9 @@ export default function Auth() {
                 Email address
               </label>
               <input
-                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all text-base text-slate-900"
+                className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-slate-900 text-base
+focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-600
+transition-all"
                 id="email"
                 name="email"
                 placeholder="JohnDoe@gmail.com"
@@ -185,7 +198,9 @@ export default function Auth() {
                   onChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
-                  className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all text-base text-slate-900 pr-12"
+                  className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-md text-slate-900 text-base
+focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-600
+transition-all"
                   required
                 />
 
