@@ -1,18 +1,12 @@
 import Logo from "@/components/shared/Logo";
 import {
-  Drumstick,
-  Basketball,
   Music,
   FlaskConical,
-  Utensils,
-  Mountain,
   Search,
   Bell,
-  AccessibilityIcon,
   UserCircle,
   CalendarHeartIcon,
   MonitorCheck,
-  LocateIcon,
   Map,
 } from "lucide-react";
 

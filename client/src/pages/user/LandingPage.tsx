@@ -21,16 +21,19 @@ interface Event {
 export default function LandingPage() {
   const [events, setEvents] = useState<Event[]>([]);
 
-  const fetchEvents = async () => {
-    try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/event`);
-
-      setEvents(res.data.events || []);
-    } catch (err) {
-      console.error(err);
-    }
-  };
   useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/event`,
+        );
+
+        setEvents(res.data.events || []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchEvents();
   }, []);
 

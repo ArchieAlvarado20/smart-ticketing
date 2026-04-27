@@ -5,6 +5,7 @@ import axios from "axios";
 import Footer from "@/components/shared/Footer";
 import { useNavigate } from "react-router-dom";
 import Logo from "@/components/shared/Logo";
+import { showError } from "@/lib/alert";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -28,13 +29,20 @@ export default function Auth() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -62,9 +70,11 @@ export default function Auth() {
       } else {
         window.location.href = "/";
       }
-    } catch (err) {
-      console.log("ERROR:", err);
-      setError(err.response?.data?.message || "Something went wrong");
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Somethind Went Wrong!";
+
+      showError(message);
     } finally {
       setLoading(false);
     }
