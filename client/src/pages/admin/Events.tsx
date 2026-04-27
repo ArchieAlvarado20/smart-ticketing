@@ -6,7 +6,6 @@ import Button from "@/components/shared/Button";
 import Sidebar from "@/components/shared/Sidebar";
 import Topbar from "@/components/shared/Topbar";
 import Unauthorized from "@/components/shared/Unauthorized";
-import { showError } from "@/lib/alert";
 import { getPagination } from "@/lib/pagination";
 import axios from "axios";
 import { List, Menu, Plus, Search } from "lucide-react";
@@ -52,12 +51,19 @@ export default function Events() {
       setTotalPages(res.data.totalPages);
       console.log(res.data);
     } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : "Somethind Went Wrong!";
-      console.log(message);
-      if (err.response?.status === 401 || err.response?.status === 403) {
-        setUnauthorized(true);
+      let message = "Something went wrong!";
+
+      if (axios.isAxiosError(err)) {
+        message = err.response?.data?.message || message;
+
+        if (err.response?.status === 401 || err.response?.status === 403) {
+          setUnauthorized(true);
+        }
+      } else if (err instanceof Error) {
+        message = err.message;
       }
+
+      console.log(message);
     }
   };
 
